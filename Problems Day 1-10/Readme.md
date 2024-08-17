@@ -1,7 +1,5 @@
 <div align="center"><h1>Video-1 to Video-10</h1></div>
 
-Here's the edited table:
-
 | Serial No. | Questions | Solution | Video Solution |
 |------------|-------------------------------------|---------------------------------------------|--------------------------------------------------------------|
 | Video 1 | N.A. | N.A. | N.A. |
