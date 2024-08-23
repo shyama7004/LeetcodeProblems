@@ -11,7 +11,7 @@ int getPivot (int arr[], int n) {
             s = mid + 1;
         }
         else {
-            e = mid;
+            e = mid;//Same Logic as mountain array question
         }
         mid = s + (e-s)/2;
     }
