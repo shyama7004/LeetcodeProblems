@@ -60,79 +60,94 @@ Try to do this in `O(log(n))`.
 
 ## Code
 ```cpp
-#include <bits/stdc++.h> 
+#include<iostream>
+#include<vector>
+#include<cmath>
+#include<algorithm>
 
-int firstOccurrence(vector<int>& arr, int size, int key) {
+using namespace std;
 
-    int start = 0;
-    int end = size-1;
-
-    int mid = start + (end-start)/2;
-
-    int ans = -1;
-
-    while (start <= end) {
-
-        if (arr[mid] == key) {
-            ans = mid;
-            end = mid-1;
-        }
-
-        //go to right wala part
-        else if (key > arr[mid]) {
-            start = mid + 1;
-        }
-        
-        //key < arr[mid] go to left wala part
-        else if (key < arr[mid]) { 
-            end = mid - 1;
-        }
-
-        mid = start + (end-start)/2;
-    }
-    
-    return ans;
-}
-int lastOccurrence(vector<int>& arr, int size, int key) {
-
-    int start = 0;
-    int end = size-1;
-
-    int mid = start + (end-start)/2;
-
-    int ans = -1;
-
-    while (start <= end) {
-
-        if (arr[mid] == key) {
-            ans = mid;
-            start = mid+1;
-        }
-
-        //go to right wala part
-        else if (key > arr[mid]) {
-            start = mid + 1;
-        }
-        
-        //key < arr[mid] go to left wala part
-        else if (key < arr[mid]) { 
-            end = mid - 1;
-        }
-
-        mid = start + (end-start)/2;
-    }
-    
-    return ans;
-}
-
-pair<int, int> firstAndLastPosition(vector<int>& arr, int n, int k)
+int firstOccurence(vector<int>& arr, int size, int key)
 {
-    // Write your code here
+    int s = 0;
+    int e = size - 1;
+
+    int mid = s + (e - s)/2;
+    int ans = -1;
+    while(s <= e)
+    {
+        if(arr[mid] == key)
+        {
+            ans = mid;
+            e = mid - 1;
+        }
+
+        else if(key > arr[mid])
+        {
+            s = mid + 1;
+        }
+        
+        else if(key < arr[mid])
+        {
+            e = mid - 1;
+        }
+        mid = s + (e - s)/2;
+    }
+    return ans;
+}
+
+int lastOccurence(vector<int>& arr, int size, int key)
+{
+    int s = 0;
+    int e = size - 1;
+
+    int mid  = s + (e - s)/2;
+    int ans = -1;
+
+    while(s <= e)
+    {
+        if(arr[mid] == key)
+        {
+            ans = mid;
+            s = mid + 1;
+        }
+
+        else if(key > arr[mid])
+        {
+            s = mid + 1;
+        }
+        
+        else if(key < arr[mid])
+        {
+            e = mid - 1;
+        }
+        mid = s + (e - s)/2;
+    }
+    return ans;
+    
+}
+
+pair<int, int> firstandlastOccurence()
+{
+    vector<int> arr = {0 ,0, 1, 1, 2, 2, 2, 2};
+    int k = 2;
+    int size = 8;
+
     pair<int, int> p;
-    p.first = firstOccurrence(arr, n, k);
-    p.second = lastOccurrence(arr, n, k);
+
+    p.first = firstOccurence(arr, size, k);
+    p.second = lastOccurence(arr, size, k);
+
     return p;
 }
+
+int main() 
+{
+    pair<int, int> result = firstandlastOccurence();
+    cout << "The first index is " << result.first << " and the last index is " << result.second << endl;
+    return 0;
+}
+
 ```
 ### Code Explanation
 
