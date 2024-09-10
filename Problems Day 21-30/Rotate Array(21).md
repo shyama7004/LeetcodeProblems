@@ -54,12 +54,32 @@ public:
 
 #### Logic and Intuition
 
-1. **Create a temporary array:** A new array `temp` of the same size as `nums` is created to store the rotated elements.
-2. **Map each element to its new position:**
-    - For each element in the original array `nums`, calculate its new position after rotation.
-    - The new position of an element at index `i` is `(i + k) % nums.size()`.
-    - This formula ensures that the new position wraps around to the beginning of the array if it exceeds the array length.
-3. **Copy the temporary array back to the original array:** After all elements are placed in their new positions in `temp`, copy the contents of `temp` back to `nums`.
+In the given code, the line `temp[(i + k) % nums.size()] = nums[i];` is responsible for rotating the elements of the `nums` vector by `k` positions to the right. Here's a detailed explanation of this line:
+
+1. **Index Calculation**: `(i + k) % nums.size()`
+   - `i` is the current index of the element in the original `nums` vector.
+   - `k` is the number of positions to rotate the vector to the right.
+   - `nums.size()` gives the total number of elements in the `nums` vector.
+   - Adding `i` and `k` gives the new index where the current element (`nums[i]`) should be placed in the `temp` vector.
+   - The modulo operation `% nums.size()` ensures that the new index wraps around if it goes beyond the bounds of the vector size. This is crucial for handling cases where the new index would exceed the vector length, ensuring it "wraps around" to the beginning of the vector.
+
+2. **Assignment**: `temp[(i + k) % nums.size()] = nums[i];`
+   - This assigns the element `nums[i]` to the new index `(i + k) % nums.size()` in the `temp` vector.
+   - By doing this for every element in the original `nums` vector, the `temp` vector ends up being a rotated version of `nums`.
+
+### Example
+
+Consider the vector `nums = [1, 2, 3, 4, 5]` and `k = 2`.
+
+1. For `i = 0`, `(i + k) % nums.size()` is `(0 + 2) % 5` which is `2`. So, `temp[2] = nums[0]` -> `temp[2] = 1`.
+2. For `i = 1`, `(i + k) % nums.size()` is `(1 + 2) % 5` which is `3`. So, `temp[3] = nums[1]` -> `temp[3] = 2`.
+3. For `i = 2`, `(i + k) % nums.size()` is `(2 + 2) % 5` which is `4`. So, `temp[4] = nums[2]` -> `temp[4] = 3`.
+4. For `i = 3`, `(i + k) % nums.size()` is `(3 + 2) % 5` which is `0`. So, `temp[0] = nums[3]` -> `temp[0] = 4`.
+5. For `i = 4`, `(i + k) % nums.size()` is `(4 + 2) % 5` which is `1`. So, `temp[1] = nums[4]` -> `temp[1] = 5`.
+
+After this process, `temp` will be `[4, 5, 1, 2, 3]`, which is the original `nums` vector rotated to the right by 2 positions.
+
+Finally, the line `nums = temp;` assigns the rotated vector back to `nums`, completing the rotation operation.
 
 #### Explanation
 
@@ -111,6 +131,12 @@ int main()
 
 ### Approach 2: In-Place Rotation Using Reversal
 
+`Note` : In-place means that you should update the original string rather than creating a new one.
+
+Depending on the language/framework that you're using this could be impossible. (For example, strings are immutable in .NET and Java, so it would be impossible to perform an in-place update of a string without resorting to some evil hacks.)
+
+
+
 #### Code
 ```cpp
 class Solution {
@@ -126,13 +152,63 @@ public:
 
 #### Logic and Intuition
 
-1. **Handle `k` greater than the array size:** Calculate `k % nums.size()` to handle cases where `k` is greater than the size of the array. Rotating an array by its length results in the same array, so we only need to rotate by the remainder.
-2. **Reverse the first part of the array:** Reverse the first `n-k` elements. This changes the order of the first part of the array.
-    - Example: For `nums = [1, 2, 3, 4, 5, 6, 7]` and `k = 3`, `n-k` is 4. Reverse `[1, 2, 3, 4]` to get `[4, 3, 2, 1]`.
-3. **Reverse the second part of the array:** Reverse the last `k` elements. This changes the order of the second part of the array.
-    - Reverse `[5, 6, 7]` to get `[7, 6, 5]`.
-4. **Reverse the entire array:** Reverse the whole array to get the final rotated result.
-    - Reverse `[4, 3, 2, 1, 7, 6, 5]` to get `[5, 6, 7, 1, 2, 3, 4]`.
+The provided code rotates a vector `nums` to the right by `k` positions. The rotation is performed in three steps using the `reverse` function from the C++ Standard Library. Here's an explanation of each part:
+
+1. **Handling Large `k` Values**:
+   ```cpp
+   k = k % nums.size();
+   ```
+   - This line ensures that `k` is within the bounds of the vector's length. 
+   - If `k` is larger than the size of `nums`, rotating the array by `k` positions has the same effect as rotating it by `k % nums.size()` positions.
+   - For example, rotating an array of size 5 by 7 positions is equivalent to rotating it by 2 positions (since `7 % 5 == 2`).
+
+2. **Reverse the First Part of the Array**:
+   ```cpp
+   reverse(nums.begin(), nums.begin() + (nums.size() - k));
+   ```
+   - This line reverses the first part of the array, up to the point where the rotation will split it.
+   - `nums.begin() + (nums.size() - k)` gives an iterator to the point where the rotation split occurs.
+   - Reversing this part of the array prepares it for the final rotation.
+
+3. **Reverse the Second Part of the Array**:
+   ```cpp
+   reverse(nums.begin() + (nums.size() - k), nums.end());
+   ```
+   - This line reverses the second part of the array, starting from the split point to the end.
+   - This prepares the second part of the array for the final rotation.
+
+4. **Reverse the Entire Array**:
+   ```cpp
+   reverse(nums.begin(), nums.end());
+   ```
+   - Finally, this line reverses the entire array.
+   - By reversing the entire array after reversing the two parts separately, the elements are effectively rotated to the right by `k` positions.
+
+### Example Walkthrough
+
+Consider the vector `nums = [1, 2, 3, 4, 5]` and `k = 2`.
+
+1. **Handle Large `k` Values**:
+   - `k = k % nums.size()`, which results in `k = 2 % 5 = 2`.
+
+2. **Reverse the First Part**:
+   - Before reversal: `[1, 2, 3]`
+   - After reversal: `[3, 2, 1]`
+   - Array state: `[3, 2, 1, 4, 5]`
+
+3. **Reverse the Second Part**:
+   - Before reversal: `[4, 5]`
+   - After reversal: `[5, 4]`
+   - Array state: `[3, 2, 1, 5, 4]`
+
+4. **Reverse the Entire Array**:
+   - Before reversal: `[3, 2, 1, 5, 4]`
+   - After reversal: `[4, 5, 1, 2, 3]`
+   - Final array state: `[4, 5, 1, 2, 3]`
+
+This final array is the original array rotated to the right by 2 positions.
+
+In summary, these steps reverse the necessary parts of the array to achieve the rotation in an efficient manner, avoiding the need for additional space beyond a few temporary variables for the iterators.
 
 #### Explanation
 
