@@ -1,7 +1,5 @@
 # 189. Rotate Array
 
-**Medium**
-
 ## Topics
 
 - Arrays
