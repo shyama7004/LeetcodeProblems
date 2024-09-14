@@ -145,3 +145,17 @@ The aim is to traverse the matrix in a wave-like pattern, column by column. For 
 - **Return Statement**: `return ans;` returns the result vector containing the wave traversal.
 
 This approach ensures all elements in the matrix are traversed in the desired wave pattern.
+
+### Time Complexity
+The time complexity of the `wavePrint` function is O(n times m), where (n) is the number of rows (`nRows`) and (m) is the number of columns (`mCols`). This is because:
+- We iterate over each column in the outer loop, which runs (m) times.
+- For each column, we iterate over all rows, which runs (n) times.
+
+Hence, the total number of iterations is (n times m), resulting in a time complexity of O(n times m).
+
+### Space Complexity
+The space complexity of the `wavePrint` function is O(n times m)) for the output vector `ans`. This is because `ans` stores all the elements of the input matrix, which has (n times m) elements.
+
+Additional space complexity is (O(1)) for the variables used in the function (like the loop counters `i` and `j`).
+
+Therefore, the overall space complexity is dominated by the space required for the output vector, which is O(n times m).
