@@ -97,3 +97,51 @@ Basically, the even columns are printed from top to bottom, and the odd columns 
 ## Question Explanation and Logic
 
 <div align ="center"><img src ="https://github.com/shyama7004/LeetcodeProblems/blob/main/Problems%20Day%2031-40/Images/123.png"></div>
+
+
+
+```py
+
+#include <bits/stdc++.h> 
+vector<int> wavePrint(vector<vector<int>> arr, int nRows, int mCols)
+{
+    //Write your code here
+    vector<int> ans;
+    for (int j=0; j<mCols; j++) {
+        if (j%2==0) {
+            for (int i=0; i<nRows; i++) {
+                ans.push_back(arr[i][j]);
+            }   
+        }
+        else {
+            for (int i=nRows-1; i>=0; i--) {
+                ans.push_back(arr[i][j]);
+            } 
+        }
+    }
+    return ans;
+}
+```
+This code implements a wave-like traversal of a 2D matrix and returns the elements in a specific order. Here's the explanation of the logic, intuition, and approach:
+
+### Intuition
+The aim is to traverse the matrix in a wave-like pattern, column by column. For even-indexed columns, the traversal is top to bottom, while for odd-indexed columns, the traversal is bottom to top. This pattern resembles waves and ensures all elements are visited.
+
+### Approach
+1. **Initialize Result Vector**: Create an empty vector `ans` to store the traversal result.
+2. **Iterate Over Columns**: Use a loop to iterate over each column (denoted by `j`).
+3. **Column Check**:
+    - For even-indexed columns (`j % 2 == 0`), traverse from the top to the bottom of the current column, adding elements to `ans`.
+    - For odd-indexed columns, traverse from the bottom to the top of the current column, adding elements to `ans`.
+4. **Return Result**: After iterating through all columns, return the `ans` vector containing the wave traversal of the matrix.
+
+### Code Walkthrough
+- **Initialization**: `vector<int> ans;` creates an empty vector to store the wave traversal result.
+- **Outer Loop**: `for (int j=0; j<mCols; j++)` iterates through each column.
+    - **Even Column Check**: `if (j % 2 == 0)` checks if the column index is even.
+        - **Top to Bottom Traversal**: `for (int i=0; i<nRows; i++)` iterates through each row from top to bottom, adding elements to `ans`.
+    - **Odd Column Check**: `else` handles the odd-indexed columns.
+        - **Bottom to Top Traversal**: `for (int i=nRows-1; i>=0; i--)` iterates through each row from bottom to top, adding elements to `ans`.
+- **Return Statement**: `return ans;` returns the result vector containing the wave traversal.
+
+This approach ensures all elements in the matrix are traversed in the desired wave pattern.
