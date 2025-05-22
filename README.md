@@ -1,7 +1,9 @@
 <h1><div align="center"> DSA Progress</div></h1>
 
 
-`Here are the links to all the lectures in the DSA Placement Course by Love Babbar playlist`
+`Here are the links to all the lectures in the DSA Placement Course by Love Babbar playlist` 
+
+You can update this list and add some changes and make some PRs, if the PR is relevant enough it will be added in here.
 
 1. [Lecture 1](https://www.youtube.com/watch?v=WQoB2z67hvY&list=PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA&index=1&t=2s)
 2. [Lecture 2](https://www.youtube.com/watch?v=t6zLJOCVqD0&list=PLDzeHZWIZsTryvtXdMr6rPh4IDexB5NIA&index=2)
